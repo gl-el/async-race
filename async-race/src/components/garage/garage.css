@@ -1,0 +1,76 @@
+.garage__options {
+  display: grid;
+  grid-template-columns: 100px 30px 70px 150px;
+  grid-template-rows: repeat(3, 25px);
+  row-gap: 10px;
+  column-gap: 5px;
+  grid-template-areas:
+    "input-new color-new btn-create gen"
+    "input-upd color-upd btn-update none"
+    "btn-race btn-reset btn-reset none"
+}
+
+.text-upd {
+  grid-area: input-upd;
+}
+
+.color-upd {
+  grid-area: color-upd;
+}
+
+.btn-update {
+  grid-area: btn-update;
+}
+
+
+.btn-race {
+  grid-area: btn-race;
+}
+
+.btn-reset {
+  grid-area: btn-reset;
+}
+
+.btn-gen {
+  grid-area: gen;
+}
+
+.options__color {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input:disabled {
+  cursor: default;
+}
+
+.options__color::-webkit-color-swatch {
+  border-radius: 5px;
+}
+
+.options__input-text {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.options__counter {
+  grid-area: total;
+}
+
+.cars {
+  height: 805px;
+}
+
+.pagination {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
