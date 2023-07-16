@@ -43,7 +43,7 @@ class EngineService extends BaseService {
   public async driveEngine(carId: number): Promise<DriveStatus> {
     const url = this.makeUrl(Endpoints.Engine, { id: carId, status: EngineStatus.Drive });
 
-    const driveStatus = fetch(url, { method: 'PATCH' }).then((response) => {
+    const driveStatus = await fetch(url, { method: 'PATCH' }).then((response) => {
       if (response.status !== EngineStatusCode.OK) {
         throw new ApiError(response.status, response.statusText);
       }
