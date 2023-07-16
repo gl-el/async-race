@@ -1,43 +1,51 @@
 import './car.css';
 import colorizeCar from './colorizeCar';
-import { GarageCar } from '../../utils/types';
+import { ICar } from '../../utils/types';
 import BtnBuilder from '../../common/btnBuilder';
 import ElementBuilder from '../../common/elementBuilder';
-
-const CAR_WIDTH = 150;
+import { CAR_WIDTH } from '../../utils/consts';
 
 export default class CarView {
-  public selectBtn = new BtnBuilder('btn car__controls_select', 'Select');
+  public selectBtn = new BtnBuilder('btn options__select', 'Select');
 
-  public removeBtn = new BtnBuilder('btn car__controls_remove', 'Remove');
+  public removeBtn = new BtnBuilder('btn options__remove', 'Remove');
 
-  public startBtn = new BtnBuilder('btn car__controls_start', 'Start');
+  public startBtn = new BtnBuilder('btn options__start', 'Start');
 
-  public stopBtn = new BtnBuilder('btn car__controls_stop', 'Stop', true);
+  public stopBtn = new BtnBuilder('btn options__stop', 'Stop', true);
 
   private car = new ElementBuilder({ tag: 'div', classNames: 'car' });
 
   private carContainer = new ElementBuilder({ tag: 'div', classNames: 'car__container' });
 
-  private carControls = new ElementBuilder({ tag: 'div', classNames: 'car__controls' });
+  private carOptions = new ElementBuilder({ tag: 'div', classNames: 'car__options' });
 
   private road = new ElementBuilder({ tag: 'div', classNames: 'road' });
 
-  private carName = new ElementBuilder({ tag: 'p', classNames: 'car__name' });
+  private carName = new ElementBuilder({ tag: 'p', classNames: 'options__name' });
 
   private animationDrive!: Animation;
 
-  constructor(name: GarageCar['name'], color: GarageCar['color']) {
+  constructor(name: ICar['name'], color: ICar['color']) {
     this.car.el.innerHTML = colorizeCar(color);
     this.setName(name);
-    this.carControls.addInner(this.selectBtn, this.removeBtn, this.startBtn, this.stopBtn);
+    this.carOptions.addInner(
+      this.selectBtn,
+      this.removeBtn,
+      this.startBtn,
+      this.stopBtn,
+      this.carName,
+    );
     this.road.addInner(this.car);
-    this.carControls.addInner(this.selectBtn, this.removeBtn, this.startBtn, this.stopBtn);
-    this.carContainer.addInner(this.carName, this.carControls, this.road);
+    this.carContainer.addInner(this.carOptions, this.road);
   }
 
-  public setName(name: GarageCar['name']): void {
+  public setName(name: ICar['name']): void {
     this.carName.addText(name);
+  }
+
+  public setColor(color: ICar['color']): void {
+    this.car.el.innerHTML = colorizeCar(color);
   }
 
   public moveToFinish(time: number): void {
@@ -58,5 +66,49 @@ export default class CarView {
 
   public render(parent: HTMLElement): void {
     parent.append(this.carContainer.createElement());
+  }
+
+  public destroy = (): void => {
+    this.carContainer.el.remove();
+  };
+
+  public turnOffBtns(btnNames: string[]): void {
+    btnNames.forEach((btnName) => {
+      switch (btnName) {
+        case 'stop':
+          this.stopBtn.disable();
+          break;
+        case 'start':
+          this.startBtn.disable();
+          break;
+        case 'select':
+          this.selectBtn.disable();
+          break;
+        case 'remove':
+          this.removeBtn.disable();
+          break;
+        // no default
+      }
+    });
+  }
+
+  public turnOnBtns(btnNames: string[]): void {
+    btnNames.forEach((btnName) => {
+      switch (btnName) {
+        case 'stop':
+          this.stopBtn.enable();
+          break;
+        case 'start':
+          this.startBtn.enable();
+          break;
+        case 'select':
+          this.selectBtn.enable();
+          break;
+        case 'remove':
+          this.removeBtn.enable();
+          break;
+        // no default
+      }
+    });
   }
 }
