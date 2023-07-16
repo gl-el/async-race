@@ -18,6 +18,12 @@ export default class BtnBuilder extends ElementBuilder {
     this.el.addEventListener('click', callback);
   }
 
+  public addAsyncClick(callback: () => Promise<void>, options = {}): void {
+    this.el.addEventListener('click', () => {
+      callback().catch(() => {});
+    }, options);
+  }
+
   public disable(): void {
     (this.el as HTMLButtonElement).disabled = true;
   }
