@@ -1,16 +1,52 @@
+.car__container {
+  padding-top: 15px;
+}
+
+.car__container:nth-child(even) {
+  background-color: rgb(234, 250, 215);
+}
+
+.car__container:nth-child(odd) {
+  background-color: rgb(255, 252, 237);
+}
+
 .car {
   position: relative;
   z-index: 2;
-  width: 150px;
+  width: 76px;
   margin: 0;
   padding: 0;
 }
 
-.car__controls {
+.car__options {
   display: grid;
-  grid-template-columns: 80px 80px;
-  gap: 10px;
-  margin-bottom: 10px;
+  grid-template-columns: 70px 70px 1fr;
+  grid-template-rows: repeat(2, 25px);
+  grid-template-areas: 
+    "select-btn remove-btn name"
+    "start-btn stop-btn none";
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.options__select {
+  grid-area: select-btn;
+}
+
+.options__remove {
+  grid-area: remove-btn;
+}
+
+.options__name {
+  grid-area: name;
+}
+
+.options__start {
+  grid-area: start-btn;
+}
+
+.options__stop {
+  grid-area: stop-btn;
 }
 
 .road {
@@ -25,10 +61,10 @@
   content: "";
   background: url("../../assets/Finish.svg");
   background-size: contain;
-  width: 15px;
-  height: 70px;
+  width: 10px;
+  height: 35px;
   line-height: 50px;
   position: relative;
-  right: 135px;
+  right: 65px;
   bottom: 0px;
 }
