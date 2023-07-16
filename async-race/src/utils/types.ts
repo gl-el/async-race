@@ -5,21 +5,19 @@ export interface Params {
   attr?: { [key: string]: string },
 }
 
-export interface Car {
+export interface ICar {
   name: string,
   color: string,
-}
-
-export interface GarageCar extends Car {
   id: number,
 }
 
-export interface GarageCarsPerPage {
-  total: number,
-  cars: GarageCar[],
+export interface IWinner {
+  id: number,
+  wins: number,
+  time: number,
 }
 
-export type EngineStatus = 'started' | 'stopped' | 'drive';
+export enum EngineStatus { Start = 'started', Stop = 'stopped', Drive = 'drive' }
 
 export interface DriveParams {
   velocity: number,
@@ -29,3 +27,9 @@ export interface DriveParams {
 export interface DriveStatus {
   success: boolean
 }
+
+export interface IQueries {
+  [query: string]: number | string;
+}
+
+export enum Endpoints { Garage = '/garage', Engine = '/engine', Winners = '/winners' }
