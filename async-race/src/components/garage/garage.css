@@ -5,17 +5,17 @@
   row-gap: 10px;
   column-gap: 5px;
   grid-template-areas:
-    "input-new color-new btn-create gen"
-    "input-upd color-upd btn-update none"
+    "input-new color-new btn-create btn-generate"
+    "input-update color-update btn-update none"
     "btn-race btn-reset btn-reset none"
 }
 
 .text-upd {
-  grid-area: input-upd;
+  grid-area: input-update;
 }
 
 .color-upd {
-  grid-area: color-upd;
+  grid-area: color-update;
 }
 
 .btn-update {
@@ -32,7 +32,7 @@
 }
 
 .btn-gen {
-  grid-area: gen;
+  grid-area: btn-generate;
 }
 
 .options__color {

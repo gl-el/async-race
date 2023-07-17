@@ -120,8 +120,11 @@ export class GarageController {
       this.model.isRace = true;
       await this.model.resetAllCars();
       await this.model.raceAllCars();
-      this.view.turnOnBtns(['reset', 'create', 'gen', 'next', 'prev']);
+      this.showWinner();
+      this.view.turnOnBtns(['reset', 'create', 'gen']);
+      this.updatePagination();
     } catch (err) {
+      this.updatePagination();
       this.view.turnOnBtns(['race', 'reset', 'create', 'gen', 'next', 'prev']);
     }
   };
@@ -156,4 +159,13 @@ export class GarageController {
     await this.model.resetAllCars();
     this.view.raceBtn.enable();
   };
+
+  public showWinner(): void {
+    if (this.model.winner) {
+      const name = this.model.winner.getCarName();
+      const time = this.model.winner.getTime();
+      this.view.modal.setText(`${name} wins in ${time} sec`);
+      this.view.modal.showModal();
+    }
+  }
 }

@@ -8,7 +8,7 @@ export class GarageModel {
 
   public carsOnPage: CarController[] = [];
 
-  private winner!: CarController | null;
+  public winner!: CarController | null;
 
   public totalOnPage = 0;
 
@@ -56,8 +56,8 @@ export class GarageModel {
 
   public uploadWinner = async (): Promise<void> => {
     try {
-      const winnerReceived = await winnerService.getWinner(Number(this.winner?.getCarId()));
       if (this.winner) {
+        const winnerReceived = await winnerService.getWinner(Number(this.winner?.getCarId()));
         const winnerId = winnerReceived.id;
         const updatedWins = winnerReceived.wins + 1;
         const winnertime = this.winner.getTime();

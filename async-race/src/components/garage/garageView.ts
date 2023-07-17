@@ -2,6 +2,7 @@ import './garage.css';
 import BtnBuilder from '../../common/btnBuilder';
 import ElementBuilder from '../../common/elementBuilder';
 import InputBuilder from '../../common/inputBuilder';
+import { ModalWindow } from '../modal/modal';
 
 export class GarageView {
   public newCarInput = new InputBuilder('text', 'options__input-text text-new');
@@ -32,9 +33,13 @@ export class GarageView {
 
   public pageCounter = new ElementBuilder({ tag: 'div', classNames: 'pagination__counter' });
 
+  public modal!: ModalWindow;
+
   constructor(parent: HTMLElement) {
+    const garage = new ElementBuilder({ tag: 'div', classNames: 'garage' });
     const garageControls = new ElementBuilder({ tag: 'div', classNames: 'garage__options' });
     const paginationContainer = new ElementBuilder({ tag: 'div', classNames: 'pagination' });
+    this.modal = new ModalWindow(garage.el);
     garageControls.addInner(
       this.newCarInput,
       this.colorPickerNew,
@@ -47,9 +52,8 @@ export class GarageView {
       this.genBtn,
     );
     paginationContainer.addInner(this.btnPrev, this.pageCounter, this.btnNext, this.carsCounter);
-    parent.append(garageControls.createElement());
-    parent.append(paginationContainer.createElement());
-    parent.append(this.garageContainer.createElement());
+    garage.addInner(garageControls, paginationContainer, this.garageContainer);
+    parent.append(garage.createElement());
   }
 
   public setDataForUpdate(name: string, color: string): void {

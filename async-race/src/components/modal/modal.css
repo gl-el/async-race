@@ -1,0 +1,39 @@
+.modal {
+  position: absolute;
+  top: calc(50dvh - 7.5%);
+  left: calc(50dvw - 25%);
+  width: 50%;
+  height: 15%;
+  visibility: hidden;
+  opacity: 0;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: #2fec6e;
+  border-radius: 15px;
+  border: 2px solid #1b793a;;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal_active {
+  visibility: visible;
+  opacity: 1;
+  z-index: 4;
+}
+
+.background_active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+.modal__btn {
+  width: 55px;
+}
