@@ -60,9 +60,10 @@ export class GarageModel {
         const winnerReceived = await winnerService.getWinner(Number(this.winner?.getCarId()));
         const winnerId = winnerReceived.id;
         const updatedWins = winnerReceived.wins + 1;
-        const winnertime = this.winner.getTime();
-        console.log('update', winnerId, updatedWins, winnertime);
-        await winnerService.updateWinner({ id: winnerId, wins: updatedWins, time: winnertime })
+        let winnerTime = winnerReceived.time;
+        if (this.winner.getTime() < winnerTime) winnerTime = this.winner.getTime();
+        console.log('update', winnerId, updatedWins, winnerTime);
+        await winnerService.updateWinner({ id: winnerId, wins: updatedWins, time: winnerTime })
           .catch(() => {});
       }
     } catch (err) {
