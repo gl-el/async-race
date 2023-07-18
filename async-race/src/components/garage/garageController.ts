@@ -6,6 +6,8 @@ import { GarageModel } from './garageModel';
 import { buildName } from '../../utils/buildName';
 import { brandNames, modelNames } from '../../assets/carNames';
 import { getRandomColor } from '../../utils/buildRandomColor';
+import { winnerService } from '../../api/winner';
+import { Pagination } from '../pagination/pagination';
 
 export class GarageController {
   private view!: GarageView;
@@ -14,6 +16,8 @@ export class GarageController {
 
   private page = 1;
 
+  private pagination = new Pagination();
+
   constructor(parent: HTMLElement) {
     this.view = new GarageView(parent);
     this.view.updateBtn.addAsyncClick(this.update);
@@ -21,8 +25,9 @@ export class GarageController {
     this.view.resetBtn.addAsyncClick(this.resetAllCars);
     this.view.createBtn.addAsyncClick(this.addCar);
     this.view.genBtn.addAsyncClick(this.addHundredCars);
-    this.view.btnNext.addAsyncClick(this.pageNext);
-    this.view.btnPrev.addAsyncClick(this.pagePrev);
+    this.pagination.render(this.view.garageContainer.el);
+    this.pagination.btnNext.addClick(() => this.changePage('next'));
+    this.pagination.btnPrev.addClick(() => this.changePage('prev'));
   }
 
   public init = async (): Promise<void> => {
@@ -40,8 +45,7 @@ export class GarageController {
         this.model.totalOnPage += 1;
       });
       this.model.total = totalCount;
-      this.view.setCarsCounter(totalCount);
-      this.updatePagination();
+      this.pagination.updatePagination(this.model.total, this.model.totalOnPage, this.page);
     } catch (error) {
       console.log(error);
     }
@@ -58,25 +62,20 @@ export class GarageController {
     this.view.resetUpdate();
   }
 
-  public pageNext = async (): Promise<void> => {
-    this.removeCarsFromPage();
-    this.page += 1;
-    await this.init();
-  };
-
-  public pagePrev = async (): Promise<void> => {
-    if (this.page === 1) return;
-    this.removeCarsFromPage();
-    this.page -= 1;
-    await this.init();
-  };
-
-  public updatePagination(): void {
-    this.view.setPagesCounter(this.page);
-    if (this.model.total > this.model.totalOnPage) this.view.turnOnBtns(['next']);
-    if (this.model.total <= this.page * MAX_CARS_PER_PAGE) this.view.turnOffBtns(['next']);
-    if (this.page > 1) this.view.turnOnBtns(['prev']);
-    if (this.page === 1) this.view.turnOffBtns(['prev']);
+  public changePage(direction: 'next' | 'prev'): void {
+    switch (direction) {
+      case 'next':
+        this.removeCarsFromPage();
+        this.page += 1;
+        break;
+      case 'prev':
+        if (this.page === 1) return;
+        this.removeCarsFromPage();
+        this.page -= 1;
+        break;
+        // no default
+    }
+    this.init().catch(() => {});
   }
 
   public setCallback(car: CarController): void {
@@ -89,12 +88,17 @@ export class GarageController {
   }
 
   public deleteCar = async (car: CarController): Promise<void> => {
-    await car.removeCar();
-    const index = this.model.carsOnPage.indexOf(car);
-    this.model.carsOnPage.splice(index, 1);
-    this.model.totalOnPage -= 1;
-    await this.init();
-    if (this.model.totalOnPage === 0) await this.pagePrev();
+    try {
+      await car.removeCar();
+      const index = this.model.carsOnPage.indexOf(car);
+      this.model.carsOnPage.splice(index, 1);
+      this.model.totalOnPage -= 1;
+      await this.init();
+      if (this.model.totalOnPage === 0) this.changePage('prev');
+      await winnerService.deleteCar(car.getCarId());
+    } catch {
+      console.log();
+    }
   };
 
   public startUpdate = (params: ICar, car: CarController): void => {
@@ -116,16 +120,17 @@ export class GarageController {
 
   public raceAllCars = async (): Promise<void> => {
     try {
-      this.view.turnOffBtns(['race', 'reset', 'create', 'gen', 'next', 'prev']);
+      this.view.turnOffBtns(['race', 'reset', 'create', 'gen']);
+      this.pagination.toggleBtns('disable');
       this.model.isRace = true;
       await this.model.resetAllCars();
       await this.model.raceAllCars();
       this.showWinner();
-      this.view.turnOnBtns(['reset', 'create', 'gen']);
-      this.updatePagination();
     } catch (err) {
-      this.updatePagination();
-      this.view.turnOnBtns(['race', 'reset', 'create', 'gen', 'next', 'prev']);
+      this.view.turnOnBtns(['race']);
+    } finally {
+      this.pagination.toggleBtns('enable');
+      this.view.turnOnBtns(['reset', 'create', 'gen']);
     }
   };
 

@@ -23,22 +23,13 @@ export class GarageView {
 
   public genBtn = new BtnBuilder('options__btn btn-gen', 'Generate 100 cars');
 
-  public carsCounter = new ElementBuilder({ tag: 'div', classNames: 'options__counter' });
-
   public garageContainer = new ElementBuilder({ tag: 'div', classNames: 'cars' });
-
-  public btnNext = new BtnBuilder('pagination__btn btn-next', '>', true);
-
-  public btnPrev = new BtnBuilder('pagination__btn btn-prev', '<', true);
-
-  public pageCounter = new ElementBuilder({ tag: 'div', classNames: 'pagination__counter' });
 
   public modal!: ModalWindow;
 
   constructor(parent: HTMLElement) {
     const garage = new ElementBuilder({ tag: 'div', classNames: 'garage' });
     const garageControls = new ElementBuilder({ tag: 'div', classNames: 'garage__options' });
-    const paginationContainer = new ElementBuilder({ tag: 'div', classNames: 'pagination' });
     this.modal = new ModalWindow(garage.el);
     garageControls.addInner(
       this.newCarInput,
@@ -51,8 +42,7 @@ export class GarageView {
       this.resetBtn,
       this.genBtn,
     );
-    paginationContainer.addInner(this.btnPrev, this.pageCounter, this.btnNext, this.carsCounter);
-    garage.addInner(garageControls, paginationContainer, this.garageContainer);
+    garage.addInner(garageControls, this.garageContainer);
     parent.append(garage.createElement());
   }
 
@@ -82,12 +72,6 @@ export class GarageView {
         case 'reset':
           this.resetBtn.disable();
           break;
-        case 'next':
-          this.btnNext.disable();
-          break;
-        case 'prev':
-          this.btnPrev.disable();
-          break;
         // no default
       }
     });
@@ -111,12 +95,6 @@ export class GarageView {
         case 'reset':
           this.resetBtn.enable();
           break;
-        case 'next':
-          this.btnNext.enable();
-          break;
-        case 'prev':
-          this.btnPrev.enable();
-          break;
         // no default
       }
     });
@@ -133,13 +111,5 @@ export class GarageView {
     this.updateCarInput.disable();
     this.colorPickerUpdate.disable();
     this.updateBtn.disable();
-  }
-
-  public setCarsCounter(counter: number): void {
-    this.carsCounter.addText(`Total cars: ${counter}`);
-  }
-
-  public setPagesCounter(counter: number): void {
-    this.pageCounter.addText(`Page: ${counter}`);
   }
 }
