@@ -16,7 +16,12 @@ export class Pagination {
   private max = 0;
 
   constructor() {
-    this.paginationContainer.addInner(this.btnPrev, this.pageCounter, this.btnNext);
+    this.paginationContainer.addInner(
+      this.btnPrev,
+      this.pageCounter,
+      this.btnNext,
+      this.carsCounter,
+    );
   }
 
   public setMax(max: number):void {
