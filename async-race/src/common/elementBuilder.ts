@@ -37,4 +37,8 @@ export default class ElementBuilder<T extends HTMLElement = HTMLElement> {
   public createElement(): HTMLElement {
     return this.el;
   }
+
+  public destroy(): void {
+    this.el.remove();
+  }
 }
