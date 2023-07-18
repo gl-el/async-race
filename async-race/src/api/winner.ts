@@ -14,7 +14,7 @@ const MAX_CARS_PER_PAGE = 10;
 
 class WinnerService extends BaseService {
   public async getWinners(pageNumber: number, sort: 'id' | 'wins' | 'time' = 'id', order: 'ASC' | 'DESC' = 'ASC'): Promise<{ winners: IWinner[], totalCount: number }> {
-    const url = this.makeUrl(Endpoints.Garage, {
+    const url = this.makeUrl(Endpoints.Winners, {
       _page: pageNumber, _limit: MAX_CARS_PER_PAGE, _sort: sort, _order: order,
     });
 
@@ -54,6 +54,16 @@ class WinnerService extends BaseService {
     });
 
     return createdCar;
+  }
+
+  public async deleteCar(id: number): Promise<void> {
+    const url = this.makeUrl(`${Endpoints.Winners}/${id}`);
+
+    await fetch(url, { method: 'DELETE' }).then((response) => {
+      if (response.status !== WinnerStatusCode.OK) {
+        throw new ApiError(response.status, response.statusText);
+      }
+    });
   }
 
   public async updateWinner({ id, wins, time }: IWinner): Promise<IWinner> {
