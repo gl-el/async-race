@@ -67,7 +67,7 @@ export class GarageModel {
           .catch(() => {});
       }
     } catch (err) {
-      if (err instanceof ApiError) {
+      if (err instanceof ApiError && err.status === 404) {
         if (this.winner) {
           const winnerId = Number(this.winner?.getCarId());
           const winsCount = 1;
