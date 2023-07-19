@@ -16,6 +16,12 @@ export default class ElementBuilder<T extends HTMLElement = HTMLElement> {
     }
   }
 
+  public removeClass(classes: Params['classNames']): void {
+    if (classes) {
+      this.el.classList.remove(...classes.split(' '));
+    }
+  }
+
   public addText(text: Params['text']): void {
     if (text) {
       this.el.textContent = text;
