@@ -70,4 +70,10 @@ input:disabled {
 
 .cars {
   height: 805px;
+  overflow-y: hidden;
+  transition: height 0.4s ease;
+}
+
+.cars_hide {
+  height: 0px;
 }

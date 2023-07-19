@@ -16,7 +16,7 @@ export class GarageController {
 
   private page = 1;
 
-  private pagination = new Pagination();
+  private pagination = new Pagination(MAX_CARS_PER_PAGE);
 
   constructor(parent: HTMLElement) {
     this.view = new GarageView(parent);
@@ -26,8 +26,8 @@ export class GarageController {
     this.view.createBtn.addAsyncClick(this.addCar);
     this.view.genBtn.addAsyncClick(this.addHundredCars);
     this.pagination.render(this.view.garageContainer.el);
-    this.pagination.btnNext.addClick(() => this.changePage('next'));
-    this.pagination.btnPrev.addClick(() => this.changePage('prev'));
+    this.pagination.next(() => this.changePage('next'));
+    this.pagination.prev(() => this.changePage('prev'));
   }
 
   public init = async (): Promise<void> => {
@@ -52,17 +52,16 @@ export class GarageController {
   };
 
   public removeCarsFromPage(): void {
-    this.model.carsOnPage.forEach((car) => {
-      car.destroyCar();
-    });
     this.model.carsOnPage = [];
     this.model.totalOnPage = 0;
     this.model.isRace = false;
-    this.view.raceBtn.enable();
     this.view.resetUpdate();
   }
 
   public changePage(direction: 'next' | 'prev'): void {
+    const carsToDelete = this.model.carsOnPage;
+    this.view.turnOffBtns(['race', 'reset', 'create', 'update', 'gen']);
+    this.pagination.toggleBtns('disable');
     switch (direction) {
       case 'next':
         this.removeCarsFromPage();
@@ -73,9 +72,15 @@ export class GarageController {
         this.removeCarsFromPage();
         this.page -= 1;
         break;
-        // no default
+      // no default
     }
-    this.init().catch(() => {});
+    this.view.garageContainer.addClass('cars_hide');
+    this.view.garageContainer.el.addEventListener('transitionend', () => {
+      carsToDelete.forEach((car) => car.destroyCar());
+      this.init().catch(() => {});
+      this.view.garageContainer.removeClass('cars_hide');
+      this.view.turnOnBtns(['race', 'reset', 'create', 'update', 'gen']);
+    }, { once: true });
   }
 
   public setCallback(car: CarController): void {

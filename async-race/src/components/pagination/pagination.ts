@@ -15,17 +15,14 @@ export class Pagination {
 
   private max = 0;
 
-  constructor() {
+  constructor(max: number) {
+    this.max = max;
     this.paginationContainer.addInner(
       this.btnPrev,
       this.pageCounter,
       this.btnNext,
       this.carsCounter,
     );
-  }
-
-  public setMax(max: number):void {
-    this.max = max;
   }
 
   public render(parent: HTMLElement): void {
@@ -57,5 +54,13 @@ export class Pagination {
         break;
       // no default
     }
+  }
+
+  public next(callback: () => void): void {
+    this.btnNext.addClick(callback);
+  }
+
+  public prev(callback: () => void): void {
+    this.btnPrev.addClick(callback);
   }
 }
