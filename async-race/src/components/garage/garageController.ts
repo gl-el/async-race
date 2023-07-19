@@ -79,7 +79,7 @@ export class GarageController {
       carsToDelete.forEach((car) => car.destroyCar());
       this.init().catch(() => {});
       this.view.garageContainer.removeClass('cars_hide');
-      this.view.turnOnBtns(['race', 'reset', 'create', 'update', 'gen']);
+      this.view.turnOnBtns(['race', 'reset', 'create', 'gen']);
     }, { once: true });
   }
 
@@ -134,7 +134,7 @@ export class GarageController {
     } catch (err) {
       this.view.turnOnBtns(['race']);
     } finally {
-      this.pagination.toggleBtns('enable');
+      this.pagination.updatePagination(this.model.total, this.model.totalOnPage, this.page);
       this.view.turnOnBtns(['reset', 'create', 'gen']);
     }
   };
