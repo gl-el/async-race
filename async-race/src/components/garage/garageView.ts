@@ -5,6 +5,8 @@ import InputBuilder from '../../common/inputBuilder';
 import { ModalWindow } from '../modal/modal';
 
 export class GarageView {
+  public garageContainer = new ElementBuilder({ tag: 'div', classNames: 'garage' });
+
   public newCarInput = new InputBuilder('text', 'options__input-text text-new');
 
   public colorPickerNew = new InputBuilder('color', 'options__color color-new');
@@ -23,14 +25,13 @@ export class GarageView {
 
   public genBtn = new BtnBuilder('options__btn btn-gen', 'Generate 100 cars');
 
-  public garageContainer = new ElementBuilder({ tag: 'div', classNames: 'cars' });
+  public carsContainer = new ElementBuilder({ tag: 'div', classNames: 'cars' });
 
   public modal!: ModalWindow;
 
   constructor(parent: HTMLElement) {
-    const garage = new ElementBuilder({ tag: 'div', classNames: 'garage' });
     const garageControls = new ElementBuilder({ tag: 'div', classNames: 'garage__options' });
-    this.modal = new ModalWindow(garage.el);
+    this.modal = new ModalWindow(this.garageContainer.el);
     garageControls.addInner(
       this.newCarInput,
       this.colorPickerNew,
@@ -42,8 +43,8 @@ export class GarageView {
       this.resetBtn,
       this.genBtn,
     );
-    garage.addInner(garageControls, this.garageContainer);
-    parent.append(garage.createElement());
+    this.garageContainer.addInner(garageControls, this.carsContainer);
+    parent.append(this.garageContainer.createElement());
   }
 
   public setDataForUpdate(name: string, color: string): void {

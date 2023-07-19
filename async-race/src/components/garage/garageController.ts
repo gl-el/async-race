@@ -25,7 +25,7 @@ export class GarageController {
     this.view.resetBtn.addAsyncClick(this.resetAllCars);
     this.view.createBtn.addAsyncClick(this.addCar);
     this.view.genBtn.addAsyncClick(this.addHundredCars);
-    this.pagination.render(this.view.garageContainer.el);
+    this.pagination.render(this.view.carsContainer.el);
     this.pagination.next(() => this.changePage('next'));
     this.pagination.prev(() => this.changePage('prev'));
   }
@@ -39,7 +39,7 @@ export class GarageController {
           return;
         }
         const createdCar = new CarController(car);
-        createdCar.createCar(this.view.garageContainer.el);
+        createdCar.createCar(this.view.carsContainer.el);
         this.setCallback(createdCar);
         this.model.carsOnPage.push(createdCar);
         this.model.totalOnPage += 1;
@@ -74,11 +74,11 @@ export class GarageController {
         break;
       // no default
     }
-    this.view.garageContainer.addClass('cars_hide');
-    this.view.garageContainer.el.addEventListener('transitionend', () => {
+    this.view.carsContainer.addClass('cars_hide');
+    this.view.carsContainer.el.addEventListener('transitionend', () => {
       carsToDelete.forEach((car) => car.destroyCar());
-      this.init().catch(() => {});
-      this.view.garageContainer.removeClass('cars_hide');
+      this.init().catch(() => { });
+      this.view.carsContainer.removeClass('cars_hide');
       this.view.turnOnBtns(['race', 'reset', 'create', 'gen']);
     }, { once: true });
   }
@@ -102,7 +102,7 @@ export class GarageController {
       if (this.model.totalOnPage === 0) this.changePage('prev');
       await winnerService.deleteCar(car.getCarId());
     } catch {
-      console.log();
+      console.log('failed to delete');
     }
   };
 
@@ -178,4 +178,12 @@ export class GarageController {
       this.view.modal.showModal();
     }
   }
+
+  public show = (): void => {
+    this.view.garageContainer.addClass('garage_active');
+  };
+
+  public hide = (): void => {
+    this.view.garageContainer.removeClass('garage_active');
+  };
 }

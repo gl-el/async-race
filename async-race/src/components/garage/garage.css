@@ -1,5 +1,10 @@
 .garage {
+  display: none;
   padding: 10px;
+}
+
+.garage_active {
+  display: block;
 }
 
 .garage__options {
