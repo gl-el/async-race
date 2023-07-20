@@ -23,6 +23,7 @@ export class ModalWindow {
   }
 
   private hideModal = (): void => {
+    document.body.classList.remove('no-scroll');
     this.modalWindow.el.classList.remove('modal_active');
     this.background.el.classList.remove('background_active');
   };
@@ -30,5 +31,6 @@ export class ModalWindow {
   public showModal(): void {
     this.modalWindow.addClass('modal_active');
     this.background.addClass('background_active');
+    document.body.classList.add('no-scroll');
   }
 }

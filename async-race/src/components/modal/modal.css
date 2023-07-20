@@ -37,3 +37,7 @@
 .modal__btn {
   width: 55px;
 }
+
+.no-scroll {
+  overflow-y: hidden;
+}
