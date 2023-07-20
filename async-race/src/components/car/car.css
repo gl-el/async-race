@@ -18,6 +18,19 @@
   padding: 0;
 }
 
+.car_broken::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 58px;
+  bottom: 20px;
+  width: 15px;
+  height: 20px;
+  background-image: url(../../assets/collision-svgrepo-com.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .car__options {
   display: grid;
   grid-template-columns: 70px 70px 1fr;

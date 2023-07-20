@@ -50,6 +50,7 @@ export default class CarController {
     this.view.turnOnBtns(['select', 'remove']);
     if (this.model.isBroken) {
       this.view.movePause();
+      this.view.setBroken();
       this.view.turnOnBtns(['select', 'remove']);
       if (!isRace) this.view.turnOnBtns(['stop']);
       throw new Error();

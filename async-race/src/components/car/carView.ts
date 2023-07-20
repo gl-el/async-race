@@ -56,7 +56,12 @@ export default class CarView {
     this.animationDrive = this.car.el.animate(carMove, { duration: time, iterations: 1, fill: 'forwards' });
   }
 
+  public setBroken(): void {
+    this.car.addClass('car_broken');
+  }
+
   public moveToStart(): void {
+    this.car.removeClass('car_broken');
     this.car.el.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(0)' }], { duration: 1, iterations: 1, fill: 'forwards' });
   }
 
