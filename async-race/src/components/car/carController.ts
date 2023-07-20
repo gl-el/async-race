@@ -12,7 +12,6 @@ export default class CarController {
     this.model = new CarModel(newCar.name, newCar.color, newCar.id);
     this.view = new CarView(this.model.getName(), this.model.getColor());
     this.view.startBtn.addAsyncClick(this.driveCar);
-    this.view.stopBtn.addAsyncClick(this.stopCar);
   }
 
   public isStarted(): boolean {
@@ -48,7 +47,7 @@ export default class CarController {
     if (!isRace) this.view.turnOnBtns(['stop']);
     await this.model.startDrive();
     this.view.turnOnBtns(['select', 'remove']);
-    if (this.model.isBroken) {
+    if (this.model.isBroken && this.model.isStarted) {
       this.view.movePause();
       this.view.setBroken();
       this.view.turnOnBtns(['select', 'remove']);
@@ -93,6 +92,10 @@ export default class CarController {
 
   public getRemoveBtn(): HTMLElement {
     return this.view.removeBtn.el;
+  }
+
+  public getStopBtn(): HTMLElement {
+    return this.view.stopBtn.el;
   }
 
   public updateCar(params: ICar): void {

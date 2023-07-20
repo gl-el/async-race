@@ -83,7 +83,7 @@ export class GarageModel {
   public resetAllCars = async (): Promise<void> => {
     const promises: Promise<string | void>[] = [];
     this.carsOnPage.forEach((car) => {
-      promises.push(car.stopCar());
+      promises.push(car.stopCar(true));
     });
     await Promise.allSettled(promises);
   };

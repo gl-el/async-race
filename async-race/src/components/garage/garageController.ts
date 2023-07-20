@@ -90,6 +90,9 @@ export class GarageController {
     car.getRemoveBtn().addEventListener('click', () => {
       this.deleteCar(car).catch(() => { });
     });
+    car.getStopBtn().addEventListener('click', () => {
+      this.stopCar(car).catch(() => {});
+    });
   }
 
   public deleteCar = async (car: CarController): Promise<void> => {
@@ -103,6 +106,17 @@ export class GarageController {
       await winnerService.deleteCar(car.getCarId());
     } catch {
       console.log('failed to delete');
+    }
+  };
+
+  public stopCar = async (car: CarController): Promise<void> => {
+    try {
+      this.view.turnOffBtns(['race', 'reset']);
+      await car.stopCar();
+    } catch {
+      console.log('failed to stop the car');
+    } finally {
+      this.view.turnOnBtns(['race', 'reset']);
     }
   };
 
