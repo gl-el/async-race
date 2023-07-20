@@ -1,0 +1,86 @@
+.winners {
+  margin: 0 auto;
+  padding: 5px;
+  display: none;
+}
+
+.winners_active {
+  display: block;
+}
+
+.table__row {
+  display: grid;
+  width: clamp(460px, 80vw, 800px);
+  height: 40px;
+  grid-template-columns: 30px 90px 1fr 60px 130px;
+  grid-template-rows: 40px;
+  justify-items: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+  user-select: none;
+  font-size: calc(10px + 0.4vw);
+}
+
+.table__header>* {
+  line-height: 40px;
+  height: 100%;
+}
+
+.header__wins,
+.header__time {
+  cursor: pointer;
+}
+
+.header__wins:hover,
+.header__time:hover {
+  background-color: rgb(255, 252, 237);
+}
+
+.header__wins_disabled,
+.header__time_disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.header__wins_disabled:hover,
+.header__time_disabled:hover {
+  background-color: inherit;
+}
+
+.row__item {
+  width: 100%;
+  text-align: center;
+}
+
+.winners__table {
+  height: 451px;
+  overflow-y: hidden;
+  transition: height 0.4s ease-in;
+}
+
+.winners__table_hide {
+  height: 41px;
+}
+
+.arrow_desc,
+.arrow_asc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.arrow_desc::after,
+.arrow_asc::after {
+  content: '';
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-image: url(../../assets/sort_FILL0_wght400_GRAD0_opsz48.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.arrow_asc::after {
+  transform: rotate(180deg);
+}
