@@ -1,0 +1,73 @@
+:root {
+  --main-bg: hsl(222, 25%, 8%);
+  --second-bg: hsl(231, 22%, 13%);
+  --main: hsl(180, 100%, 100%);
+  --main-transparent: hsla(180, 100%, 100%, 0.5);
+  --accent: hsl(227, 89%, 61%);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--main-bg);
+  color: var(--main)
+}
+
+.body,
+.btn,
+.options__input-text {
+  font-family: 'Rubik', sans-serif;
+}
+
+.options__input-text {
+  color: #000000;
+}
+
+.btn {
+  color: var(--main);
+  border-radius: 4px;
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+  transition: all 0.4s ease-in-out;
+}
+
+.btn:disabled,
+.btn:disabled {
+  cursor: default;
+  pointer-events: none;
+  color: var(--main-transparent);
+  background-color: var(--second-bg);
+  border: 1px solid var(--main-transparent);
+}
+
+.btn:focus-visible,
+.btn:hover {
+  cursor: pointer;
+  outline-color: transparent;
+  outline-style: solid;
+  border: 1px solid var(--main);
+  background-color: var(--accent);
+}
+
+.options__input-text:focus,
+.options__color:focus,
+.options__input-text:hover,
+.options__color:hover {
+  background-color: var(--main);
+  outline: 2px solid var(--accent);
+  transition: all 0.4s linear;
+}
+
+.btn:active {
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  background: var(--main);
+}
+
+
+nav {
+  padding: 5px;
+  display: flex;
+  gap: 10px;
+}

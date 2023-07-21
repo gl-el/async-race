@@ -1,13 +1,9 @@
 .car__container {
-  padding-top: 15px;
-}
-
-.car__container:nth-child(even) {
-  background-color: rgb(234, 250, 215);
+  padding-top: 10px;
 }
 
 .car__container:nth-child(odd) {
-  background-color: rgb(255, 252, 237);
+  background-color: var(--second-bg);
 }
 
 .car {
@@ -23,7 +19,7 @@
   display: inline-block;
   position: absolute;
   left: 58px;
-  bottom: 20px;
+  bottom: 15px;
   width: 15px;
   height: 20px;
   background-image: url(../../assets/collision-svgrepo-com.svg);
@@ -33,12 +29,13 @@
 
 .car__options {
   display: grid;
-  grid-template-columns: 70px 70px 1fr;
-  grid-template-rows: repeat(2, 25px);
+  grid-template-columns: 65px 65px 1fr;
+  grid-template-rows: repeat(2, 20px);
   grid-template-areas: 
     "select-btn remove-btn name"
     "start-btn stop-btn none";
-  gap: 5px;
+  gap: 10px;
+  margin-left: 10px;
   margin-bottom: 5px;
 }
 
@@ -63,7 +60,7 @@
 }
 
 .road {
-  border-bottom: 1px dashed black;
+  border-bottom: 2px dashed #b6b6b6;
   display: flex;
   justify-content: space-between;
   align-items: baseline;

@@ -1,10 +1,14 @@
 .garage {
-  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  width: calc(100vw - 16px);
+  transform: translateX(-150%);
   padding: 10px;
 }
 
 .garage_active {
-  display: block;
+  transform: translateX(0);
+  margin: 0 auto;
 }
 
 .garage__options {
@@ -12,7 +16,7 @@
   grid-template-columns: 100px 30px 70px 150px;
   grid-template-rows: repeat(3, 25px);
   row-gap: 10px;
-  column-gap: 5px;
+  column-gap: 10px;
   grid-template-areas:
     "input-new color-new btn-create btn-generate"
     "input-update color-update btn-update none"
@@ -45,28 +49,29 @@
 }
 
 .options__color {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   width: 30px;
   height: 25px;
   background-color: transparent;
-  border: none;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
 }
 
-input:disabled {
-  cursor: default;
-}
-
-.options__color::-webkit-color-swatch {
-  border-radius: 5px;
-}
-
+.options__color::-webkit-color-swatch,
 .options__input-text {
-  border: 1px solid black;
   border-radius: 5px;
+  border: 1px solid #b6b6b6;
+}
+
+.options__color::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.options__color:disabled::-webkit-color-swatch,
+.options__input-text:disabled {
+  background-color: rgba(254, 255, 255, 0.50);
+  border: 1px solid rgba(254, 255, 255, 0.50);
 }
 
 .options__counter {
@@ -74,7 +79,7 @@ input:disabled {
 }
 
 .cars {
-  height: 805px;
+  height: 742px;
   overflow-y: hidden;
   transition: height 0.4s ease;
 }

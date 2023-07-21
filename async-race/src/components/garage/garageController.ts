@@ -91,22 +91,18 @@ export class GarageController {
       this.deleteCar(car).catch(() => { });
     });
     car.getStopBtn().addEventListener('click', () => {
-      this.stopCar(car).catch(() => {});
+      this.stopCar(car).catch(() => { });
     });
   }
 
   public deleteCar = async (car: CarController): Promise<void> => {
-    try {
-      await car.removeCar();
-      const index = this.model.carsOnPage.indexOf(car);
-      this.model.carsOnPage.splice(index, 1);
-      this.model.totalOnPage -= 1;
-      await this.init();
-      if (this.model.totalOnPage === 0) this.changePage('prev');
-      await winnerService.deleteCar(car.getCarId());
-    } catch {
-      console.log('failed to delete');
-    }
+    await car.removeCar();
+    const index = this.model.carsOnPage.indexOf(car);
+    this.model.carsOnPage.splice(index, 1);
+    this.model.totalOnPage -= 1;
+    await this.init();
+    if (this.model.totalOnPage === 0) this.changePage('prev');
+    await winnerService.deleteCar(car.getCarId());
   };
 
   public stopCar = async (car: CarController): Promise<void> => {

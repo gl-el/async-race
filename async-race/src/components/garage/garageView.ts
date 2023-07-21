@@ -11,19 +11,19 @@ export class GarageView {
 
   public colorPickerNew = new InputBuilder('color', 'options__color color-new');
 
-  public createBtn = new BtnBuilder('options__btn btn-create', 'Create');
+  public createBtn = new BtnBuilder('btn options__btn btn-create', 'Create');
 
   public updateCarInput = new InputBuilder('text', 'options__input-text text-upd', true);
 
   public colorPickerUpdate = new InputBuilder('color', 'options__color color-upd', true);
 
-  public updateBtn = new BtnBuilder('options__btn btn-update', 'Update', true);
+  public updateBtn = new BtnBuilder('btn options__btn btn-update', 'Update', true);
 
-  public raceBtn = new BtnBuilder('options__btn btn-race', 'Race');
+  public raceBtn = new BtnBuilder('btn options__btn btn-race', 'Race');
 
-  public resetBtn = new BtnBuilder('options__btn btn-reset', 'Reset');
+  public resetBtn = new BtnBuilder('btn options__btn btn-reset', 'Reset');
 
-  public genBtn = new BtnBuilder('options__btn btn-gen', 'Generate 100 cars');
+  public genBtn = new BtnBuilder('btn options__btn btn-gen', 'Generate 100 cars');
 
   public carsContainer = new ElementBuilder({ tag: 'div', classNames: 'cars' });
 

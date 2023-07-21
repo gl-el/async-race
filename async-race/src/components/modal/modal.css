@@ -8,9 +8,9 @@
   opacity: 0;
   box-sizing: border-box;
   padding: 15px;
-  background-color: #2fec6e;
+  background-color: #191B27;
   border-radius: 15px;
-  border: 2px solid #1b793a;;
+  border: 1px solid #FEFFFF;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,7 +25,7 @@
 
 .background_active {
   position: absolute;
-  top: 0;
+  top: -27px;
   left: 0;
   z-index: 3;
   width: 100dvw;

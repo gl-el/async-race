@@ -3,9 +3,9 @@ import ElementBuilder from '../../common/elementBuilder';
 import BtnBuilder from '../../common/btnBuilder';
 
 export class Pagination {
-  public btnNext = new BtnBuilder('pagination__btn btn-next', '>', true);
+  public btnNext = new BtnBuilder('btn pagination__btn btn-next', '>', true);
 
-  public btnPrev = new BtnBuilder('pagination__btn btn-prev', '<', true);
+  public btnPrev = new BtnBuilder('btn pagination__btn btn-prev', '<', true);
 
   public pageCounter = new ElementBuilder({ tag: 'div', classNames: 'pagination__counter' });
 

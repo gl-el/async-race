@@ -31,7 +31,7 @@ export class Winners {
       });
       const responses = await Promise.allSettled(promises);
       responses.forEach((resp, index) => {
-        if (resp.status === 'rejected') throw new Error('error on getting car');
+        if (resp.status === 'rejected') return;
         this.view.addRow(resp.value, this.model.winnersOnPage[index]);
       });
       this.pagination.updatePagination(this.model.total, this.model.totalOnPage, this.model.page);

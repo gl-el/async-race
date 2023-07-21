@@ -10,16 +10,26 @@
 
 .table__row {
   display: grid;
-  width: clamp(460px, 80vw, 800px);
+  width: clamp(470px, 90vw, 800px);
   height: 40px;
-  grid-template-columns: 30px 90px 1fr 60px 130px;
+  grid-template-columns: 30px 90px 1fr 75px 130px;
   grid-template-rows: 40px;
   justify-items: center;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--main-transparent);
   user-select: none;
   font-size: calc(10px + 0.4vw);
+  transition: background-color 0.2s ease-in-out;
 }
+
+.table__row:nth-child(odd) {
+  background-color: var(--second-bg);
+}
+
+.table__row:not(.table__header):hover {
+  background-color: var(--accent);
+}
+
 
 .table__header>* {
   line-height: 40px;
@@ -29,11 +39,16 @@
 .header__wins,
 .header__time {
   cursor: pointer;
+  transition: background-color 0.4s ease-in-out;
 }
 
 .header__wins:hover,
-.header__time:hover {
-  background-color: rgb(255, 252, 237);
+.header__time:hover,
+.header__wins.arrow_asc,
+.header__wins.arrow_desc,
+.header__time.arrow_asc,
+.header__time.arrow_desc {
+  background-color: var(--accent);
 }
 
 .header__wins_disabled,
@@ -79,6 +94,7 @@
   background-image: url(../../assets/sort_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  transition: transform 0.4s ease-in-out;
 }
 
 .arrow_asc::after {
