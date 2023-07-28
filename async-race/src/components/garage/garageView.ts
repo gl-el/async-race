@@ -4,6 +4,8 @@ import ElementBuilder from '../../common/elementBuilder';
 import InputBuilder from '../../common/inputBuilder';
 import { ModalWindow } from '../modal/modal';
 
+const DEFAULT_COLOR = '#000000';
+
 export class GarageView {
   public garageContainer = new ElementBuilder({ tag: 'div', classNames: 'garage' });
 
@@ -103,12 +105,12 @@ export class GarageView {
 
   public clearCreateInputs(): void {
     this.newCarInput.setValue('');
-    this.colorPickerNew.setValue('#000000');
+    this.colorPickerNew.setValue(DEFAULT_COLOR);
   }
 
   public resetUpdate(): void {
     this.updateCarInput.setValue('');
-    this.colorPickerUpdate.setValue('#000000');
+    this.colorPickerUpdate.setValue(DEFAULT_COLOR);
     this.updateCarInput.disable();
     this.colorPickerUpdate.disable();
     this.updateBtn.disable();

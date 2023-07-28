@@ -1,6 +1,8 @@
 import './winners.css';
 import ElementBuilder from '../../common/elementBuilder';
-import { ICar, IWinner } from '../../utils/types';
+import {
+  ICar, IWinner, WinnerSort, OrderSort,
+} from '../../utils/types';
 import colorizeCar from '../car/colorizeCar';
 
 export class WinnersView {
@@ -82,17 +84,17 @@ export class WinnersView {
     this.headerWinCounter.removeClass('arrow_desc');
   }
 
-  public addArrow(sorting: 'wins' | 'time', order: 'ASC' | 'DESC'): void {
+  public addArrow(sorting: WinnerSort, order: OrderSort): void {
     this.removeArrows();
-    if (sorting === 'wins') {
-      if (order === 'ASC') {
+    if (sorting === WinnerSort.wins) {
+      if (order === OrderSort.ASC) {
         this.headerWinCounter.addClass('arrow_asc');
       } else {
         this.headerWinCounter.addClass('arrow_desc');
       }
     }
-    if (sorting === 'time') {
-      if (order === 'ASC') {
+    if (sorting === WinnerSort.time) {
+      if (order === OrderSort.DESC) {
         this.headerTime.addClass('arrow_asc');
       } else {
         this.headerTime.addClass('arrow_desc');

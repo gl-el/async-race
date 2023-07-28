@@ -1,4 +1,4 @@
-import { ICar } from '../../utils/types';
+import { ICar, PageDirection } from '../../utils/types';
 import { GarageView } from './garageView';
 import { garageService, MAX_CARS_PER_PAGE } from '../../api/garage';
 import CarController from '../car/carController';
@@ -26,8 +26,8 @@ export class GarageController {
     this.view.createBtn.addAsyncClick(this.addCar);
     this.view.genBtn.addAsyncClick(this.addHundredCars);
     this.pagination.render(this.view.carsContainer.el);
-    this.pagination.next(() => this.changePage('next'));
-    this.pagination.prev(() => this.changePage('prev'));
+    this.pagination.next(() => this.changePage(PageDirection.NEXT));
+    this.pagination.prev(() => this.changePage(PageDirection.PREV));
   }
 
   public init = async (): Promise<void> => {
@@ -58,16 +58,16 @@ export class GarageController {
     this.view.resetUpdate();
   }
 
-  public changePage(direction: 'next' | 'prev'): void {
+  public changePage(direction: PageDirection): void {
     const carsToDelete = this.model.carsOnPage;
     this.view.turnOffBtns(['race', 'reset', 'create', 'update', 'gen']);
     this.pagination.toggleBtns('disable');
     switch (direction) {
-      case 'next':
+      case PageDirection.NEXT:
         this.removeCarsFromPage();
         this.page += 1;
         break;
-      case 'prev':
+      case PageDirection.PREV:
         if (this.page === 1) return;
         this.removeCarsFromPage();
         this.page -= 1;
@@ -101,7 +101,7 @@ export class GarageController {
     this.model.carsOnPage.splice(index, 1);
     this.model.totalOnPage -= 1;
     await this.init();
-    if (this.model.totalOnPage === 0) this.changePage('prev');
+    if (this.model.totalOnPage === 0) this.changePage(PageDirection.PREV);
     await winnerService.deleteCar(car.getCarId());
   };
 

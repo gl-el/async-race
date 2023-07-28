@@ -33,3 +33,9 @@ export interface IQueries {
 }
 
 export enum Endpoints { Garage = '/garage', Engine = '/engine', Winners = '/winners' }
+
+export enum WinnerSort { id = 'id', wins = 'wins', time = 'time' }
+
+export enum OrderSort { ASC = 'ASC', DESC = 'DESC' }
+
+export enum PageDirection { NEXT = 'next', PREV = 'prev' }

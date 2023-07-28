@@ -1,6 +1,6 @@
 import { garageService } from '../../api/garage';
 import CarController from '../car/carController';
-import { winnerService } from '../../api/winner';
+import { winnerService, WinnerStatusCode } from '../../api/winner';
 import { ApiError } from '../../api/errors';
 
 export class GarageModel {
@@ -67,9 +67,9 @@ export class GarageModel {
           .catch(() => {});
       }
     } catch (err) {
-      if (err instanceof ApiError && err.status === 404) {
+      if (err instanceof ApiError && err.status === WinnerStatusCode.NOT_FOUND) {
         if (this.winner) {
-          const winnerId = Number(this.winner?.getCarId());
+          const winnerId = this.winner?.getCarId();
           const winsCount = 1;
           const winnertime = this.winner.getTime();
           console.log('new', winnerId, winsCount, winnertime);

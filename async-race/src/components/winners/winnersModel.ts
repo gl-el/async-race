@@ -1,4 +1,4 @@
-import { IWinner, ICar } from '../../utils/types';
+import { IWinner, WinnerSort, OrderSort } from '../../utils/types';
 import { winnerService } from '../../api/winner';
 
 const MAX_CARS_PER_WINNERS_PAGE = 10;
@@ -12,9 +12,9 @@ export class WinnersModel {
 
   public page = 1;
 
-  public order: 'ASC' | 'DESC' = 'ASC';
+  public order = OrderSort.ASC;
 
-  public sort: 'wins' | 'time' = 'time';
+  public sort = WinnerSort.time;
 
   public async getWinners(): Promise<void> {
     try {

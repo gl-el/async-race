@@ -1,6 +1,8 @@
 import { BaseService } from './base-service';
 import { BASE_URL } from '../utils/consts';
-import { IWinner, Endpoints } from '../utils/types';
+import {
+  IWinner, Endpoints, WinnerSort, OrderSort,
+} from '../utils/types';
 import { ApiError } from './errors';
 
 export const WinnerStatusCode = {
@@ -13,7 +15,11 @@ export const WinnerStatusCode = {
 const MAX_CARS_PER_PAGE = 10;
 
 class WinnerService extends BaseService {
-  public async getWinners(pageNumber: number, sort: 'id' | 'wins' | 'time', order: 'ASC' | 'DESC' = 'ASC'): Promise<{ winners: IWinner[], totalCount: number }> {
+  public async getWinners(
+    pageNumber: number,
+    sort: WinnerSort,
+    order: OrderSort = OrderSort.ASC,
+  ): Promise<{ winners: IWinner[], totalCount: number }> {
     const url = this.makeUrl(Endpoints.Winners, {
       _page: pageNumber, _limit: MAX_CARS_PER_PAGE, _sort: sort, _order: order,
     });

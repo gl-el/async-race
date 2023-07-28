@@ -1,7 +1,9 @@
 import { garageService } from '../../api/garage';
 import { WinnersModel } from './winnersModel';
 import { WinnersView } from './winnersView';
-import { ICar } from '../../utils/types';
+import {
+  ICar, WinnerSort, OrderSort, PageDirection,
+} from '../../utils/types';
 import { Pagination } from '../pagination/pagination';
 
 const MAX_CARS_PER_WINNERS_PAGE = 10;
@@ -15,11 +17,11 @@ export class Winners {
 
   constructor(parent: HTMLElement) {
     this.view = new WinnersView(parent);
-    this.view.handleSortWins(() => this.sort('wins'));
-    this.view.handleSortTime(() => this.sort('time'));
+    this.view.handleSortWins(() => this.sort(WinnerSort.wins));
+    this.view.handleSortTime(() => this.sort(WinnerSort.time));
     this.pagination.render(this.view.table.el);
-    this.pagination.next(() => { this.changePage('next'); });
-    this.pagination.prev(() => { this.changePage('prev'); });
+    this.pagination.next(() => { this.changePage(PageDirection.NEXT); });
+    this.pagination.prev(() => { this.changePage(PageDirection.PREV); });
   }
 
   public init = async (): Promise<void> => {
@@ -40,24 +42,24 @@ export class Winners {
     }
   };
 
-  private sort = (sorting: 'wins' | 'time'): void => {
+  private sort = (sorting: WinnerSort): void => {
     if (this.model.sort !== sorting) {
-      this.model.order = 'ASC';
+      this.model.order = OrderSort.ASC;
       this.model.sort = sorting;
     } else {
-      this.model.order = this.model.order === 'ASC' ? 'DESC' : 'ASC';
+      this.model.order = this.model.order === OrderSort.ASC ? OrderSort.DESC : OrderSort.ASC;
     }
     this.view.addArrow(sorting, this.model.order);
     this.updateTable();
   };
 
-  private changePage(direction: 'next' | 'prev'): void {
+  private changePage(direction: PageDirection): void {
     this.pagination.toggleBtns('disable');
     switch (direction) {
-      case 'next':
+      case PageDirection.NEXT:
         this.model.page += 1;
         break;
-      case 'prev':
+      case PageDirection.PREV:
         if (this.model.page === 1) return;
         this.model.page -= 1;
         break;
