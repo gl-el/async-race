@@ -61,7 +61,7 @@ export class GarageController {
   public changePage(direction: PageDirection): void {
     const carsToDelete = this.model.carsOnPage;
     this.view.turnOffBtns(['race', 'reset', 'create', 'update', 'gen']);
-    this.pagination.toggleBtns('disable');
+    this.pagination.turnOffBtns();
     switch (direction) {
       case PageDirection.NEXT:
         this.removeCarsFromPage();
@@ -136,7 +136,7 @@ export class GarageController {
   public raceAllCars = async (): Promise<void> => {
     try {
       this.view.turnOffBtns(['race', 'reset', 'create', 'gen']);
-      this.pagination.toggleBtns('disable');
+      this.pagination.turnOffBtns();
       this.model.isRace = true;
       await this.model.resetAllCars();
       await this.model.raceAllCars();

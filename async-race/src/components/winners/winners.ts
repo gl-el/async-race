@@ -54,7 +54,7 @@ export class Winners {
   };
 
   private changePage(direction: PageDirection): void {
-    this.pagination.toggleBtns('disable');
+    this.pagination.turnOffBtns();
     switch (direction) {
       case PageDirection.NEXT:
         this.model.page += 1;

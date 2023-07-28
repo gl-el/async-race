@@ -42,18 +42,9 @@ export class Pagination {
     this.carsCounter.addText(`Total cars: ${total}`);
   }
 
-  public toggleBtns(status: 'enable' | 'disable'): void {
-    switch (status) {
-      case 'enable':
-        this.btnNext.enable();
-        this.btnPrev.enable();
-        break;
-      case 'disable':
-        this.btnNext.disable();
-        this.btnPrev.disable();
-        break;
-      // no default
-    }
+  public turnOffBtns(): void {
+    this.btnNext.disable();
+    this.btnPrev.disable();
   }
 
   public next(callback: () => void): void {
